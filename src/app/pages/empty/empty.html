@@ -1,0 +1,257 @@
+<div class="card">
+    <div class="font-semibold text-xl mb-4">Empty Page</div>
+    <p>Use this page to start from scratch and place your custom content.</p>
+</div>
+
+
+<div class="card flex flex-col gap-4">
+    <div class="font-semibold text-xl">Rounded</div>
+    <div class="flex flex-wrap gap-2">
+        <p-button label="Primary" rounded />
+        <p-button label="Secondary" severity="secondary" rounded />
+        <p-button label="Success" severity="success" rounded />
+        <p-button label="Info" severity="info" rounded />
+        <p-button label="Warn" severity="warn" rounded />
+        <p-button label="Help" severity="help" rounded />
+        <p-button label="Danger" severity="danger" rounded />
+        <p-button label="Contrast" severity="contrast" rounded />
+    </div>
+</div>
+
+<div class="card flex flex-col gap-4">
+    <div class="font-semibold text-xl">Rounded Icons</div>
+    <div class="flex flex-wrap gap-2">
+        <p-button icon="pi pi-check" rounded />
+        <p-button icon="pi pi-bookmark" severity="secondary" rounded />
+        <p-button icon="pi pi-search" severity="success" rounded />
+        <p-button icon="pi pi-user" severity="info" rounded />
+        <p-button icon="pi pi-bell" severity="warn" rounded />
+        <p-button icon="pi pi-heart" severity="help" rounded />
+        <p-button icon="pi pi-times" severity="danger" rounded />
+    </div>
+</div>
+
+<div class="card flex flex-col gap-12">
+    <div class="flex flex-col gap-2">
+        <label for="name1">String</label>
+        <input pInputText id="name1" type="text" />
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="age1">Yaş</label>
+        <textarea pTextarea placeholder="Your Message" [autoResize]="true" rows="3" cols="30"></textarea>
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="age1">Tarih</label>
+        <p-datepicker [showIcon]="true" [showButtonBar]="true" ></p-datepicker>
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="age1">AutoComplete</label>
+        <p-autocomplete  optionLabel="name" placeholder="Search" dropdown multiple display="chip"  />
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="age1">Checkbox</label>
+        <p-checkbox id="checkOption1" name="option" value="Chicago"  />
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="age1">RadioButton</label>
+        <p-radiobutton id="option1" name="option" value="Chicago"  />
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="age1">Select</label>
+        <p-select optionLabel="name" placeholder="Select" />
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="age1">MultiSelect</label>
+        <p-multiselect  placeholder="Select Countries" optionLabel="name" display="chip" [filter]="true">
+            
+        </p-multiselect>
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="age1">FileUpload</label>
+        <p-fileupload name="demo[]"  [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced" url="https://www.primefaces.org/cdn/api/upload.php">
+            <ng-template #empty>
+                <div>Drag and drop files to here to upload.</div>
+            </ng-template>
+            
+        </p-fileupload>
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="age1">Carousel</label>
+        <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="carouselResponsiveOptions">
+            <ng-template let-product #item>
+                <div class="border border-surface rounded-border m-2 p-4">
+                    <div class="mb-4">
+                        <div class="relative mx-auto">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
+                            <div class="absolute bg-black/70 rounded-border" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4 font-medium">{{ product.name }}</div>
+                    <div class="flex justify-between items-center">
+                        <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+                        <span>
+                            <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                            <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                        </span>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </div>
+    <div class="flex flex-col gap-2">
+        <p-table
+                #dt1
+                [value]="customers1"
+                dataKey="id"
+                [rows]="10"
+                [loading]="loading"
+                [rowHover]="true"
+                [showGridlines]="true"
+                [paginator]="true"
+                [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+                responsiveLayout="stack"
+            >
+                <ng-template #caption>
+                    <div class="flex justify-between items-center flex-column sm:flex-row">
+                        <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+                        <p-iconfield iconPosition="left" class="ml-auto">
+                            <p-inputicon>
+                                <i class="pi pi-search"></i>
+                            </p-inputicon>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt1, $event)" placeholder="Search keyword" />
+                        </p-iconfield>
+                    </div>
+                </ng-template>
+                <ng-template #header>
+                    <tr>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-between items-center">
+                                Name
+                                <p-columnFilter type="text" field="name" display="menu" placeholder="Search by name"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-between items-center">
+                                Country
+                                <p-columnFilter type="text" field="country.name" display="menu" placeholder="Search by country"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 14rem">
+                            <div class="flex justify-between items-center">
+                                Agent
+                                <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                    <ng-template #header>
+                                        <div class="px-3 pt-3 pb-0">
+                                            <span class="font-bold">Agent Picker</span>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template #filter let-value let-filter="filterCallback">
+                                        <p-multiselect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" styleClass="w-full">
+                                            <ng-template let-option #item>
+                                                <div class="flex items-center gap-2 w-44">
+                                                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="32" />
+                                                    <span>{{ option.name }}</span>
+                                                </div>
+                                            </ng-template>
+                                        </p-multiselect>
+                                    </ng-template>
+                                </p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 10rem">
+                            <div class="flex justify-between items-center">
+                                Date
+                                <p-columnFilter type="date" field="date" display="menu" placeholder="mm/dd/yyyy"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 10rem">
+                            <div class="flex justify-between items-center">
+                                Balance
+                                <p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-between items-center">
+                                Status
+                                <p-columnFilter field="status" matchMode="equals" display="menu">
+                                    <ng-template #filter let-value let-filter="filterCallback">
+                                        <p-select [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [style]="{ 'min-width': '12rem' }">
+                                            <ng-template let-option #item>
+                                                <span [class]="'customer-badge status-' + option.value">{{ option.label }}</span>
+                                            </ng-template>
+                                        </p-select>
+                                    </ng-template>
+                                </p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-between items-center">
+                                Activity
+                                <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                    <ng-template #filter let-filter="filterCallback">
+                                        <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3" [style]="{ 'min-width': '12rem' }"></p-slider>
+                                        <div class="flex items-center justify-between px-2">
+                                            <span>{{ activityValues[0] }}</span>
+                                            <span>{{ activityValues[1] }}</span>
+                                        </div>
+                                    </ng-template>
+                                </p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 8rem">
+                            <div class="flex justify-between items-center">
+                                Verified
+                                <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-customer>
+                    <tr>
+                        <td>
+                            {{ customer.name }}
+                        </td>
+                        <td>
+                            <div class="flex items-center gap-2">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" />
+                                <span>{{ customer.country.name }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex items-center gap-2">
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <span class="image-text">{{ customer.representative.name }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            {{ customer.date | date: 'MM/dd/yyyy' }}
+                        </td>
+                        <td>
+                            {{ customer.balance | currency: 'USD' : 'symbol' }}
+                        </td>
+                        <td>
+                            <p-tag [value]="customer.status.toLowerCase()" [severity]="getSeverity(customer.status.toLowerCase())" styleClass="dark:!bg-surface-900" />
+                        </td>
+                        <td>
+                            <p-progressbar [value]="customer.activity" [showValue]="false" [style]="{ height: '0.5rem' }" />
+                        </td>
+                        <td class="text-center">
+                            <p-tag [value]="customer.status.toLowerCase()" [severity]="getSeverity(customer.status.toLowerCase())" styleClass="dark:!bg-surface-900" />
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template #emptymessage>
+                    <tr>
+                        <td colspan="8">No customers found.</td>
+                    </tr>
+                </ng-template>
+                <ng-template #loadingbody>
+                    <tr>
+                        <td colspan="8">Loading customers data. Please wait.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+    </div>
+
+</div>
