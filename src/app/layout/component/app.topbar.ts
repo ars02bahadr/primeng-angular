@@ -65,16 +65,12 @@ import { LayoutService } from '../service/layout.service';
             <div class="layout-topbar-menu hidden lg:block">
                 <div class="layout-topbar-menu-content">
                     <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-calendar"></i>
-                        <span>Calendar</span>
+                        <i class="fas fa-user"></i>
+                        <span>Profil</span>
                     </button>
-                    <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-inbox"></i>
-                        <span>Messages</span>
-                    </button>
-                    <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-user"></i>
-                        <span>Profile</span>
+                    <button type="button" class="layout-topbar-action" (click)="logout()">
+                        <i class="fas fa-power-off"></i>
+                        <span>Çıkış</span>
                     </button>
                 </div>
             </div>
@@ -88,5 +84,10 @@ export class AppTopbar {
 
     toggleDarkMode() {
         this.layoutService.layoutConfig.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
+    }
+
+    logout(){
+        localStorage.clear();
+        window.location.reload();
     }
 }
