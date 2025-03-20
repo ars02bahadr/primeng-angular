@@ -1,1 +1,1 @@
-export const api:string = "https://doorshopai.almirababydesign.com/api"
+export const api:string = ""
