@@ -9,6 +9,7 @@ import { HttpService } from '../../shared/http.service';
 import { ToastModule } from 'primeng/toast';
 import { HelperComponent } from "../../shared/helper.component";
 import { SharedModule } from '../../shared/shared.module';
+import { ErrorService } from '../../shared/error.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ import { SharedModule } from '../../shared/shared.module';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private httpService:HttpService,private router:Router) { }
+  constructor(private httpService:HttpService,private router:Router,private errorService:ErrorService) { }
   
   ngOnInit(): void {
 
@@ -36,9 +37,11 @@ export class LoginComponent implements OnInit {
     checked: boolean = false;
 
   login(){
-    this.httpService.post("Auth/Login",{emailOrUserName:this.email,password:this.password},(res:any)=>{
-      localStorage.setItem("token", res.token);
+    this.httpService.post("Auth/Login",{emailOrUserName:this.email,password:this.password}).subscribe((res:any)=>{
+      localStorage.setItem("token", res.data.token);
       this.router.navigate(['/']);
+    },(err)=>{
+      this.errorService.errorHandler(err);
     })
   }
 

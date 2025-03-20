@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { api } from '../../constant';
 import { ResultModel } from './result.model';
 import { ErrorService } from './error.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -15,47 +16,35 @@ export class HttpService {
         private errorService: ErrorService
     ) {}
 
-    get<T>(apiUrl: string, callBack: (res: T) => void, errorCallBack?: () => void) {
-        this.http
-            .post<ResultModel<T>>(`${api}/${apiUrl}`, {
-                headers: {
-                    Authorization: 'Bearer ' + this.auth.token
-                }
-            })
-            .subscribe({
-                next: (res) => {
-                    if (res.data) {
-                        callBack(res.data);
-                    }
-                },
-                error: (err: HttpErrorResponse) => {
-                    this.errorService.errorHandler(err);
-                    if (errorCallBack) {
-                        errorCallBack();
-                    }
-                }
-            });
+    get<T>(apiUrl: string): Observable<T> {
+        return this.http.get<T>(`${api}/${apiUrl}`, {
+            headers: {
+                Authorization: 'Bearer ' + this.auth.token
+            }
+        });
     }
 
-    post<T>(apiUrl: string, body: any, callBack: (res: T) => void, errorCallBack?: () => void) {
-        this.http
-            .post<ResultModel<T>>(`${api}/${apiUrl}`, body, {
-                headers: {
-                    Authorization: 'Bearer ' + this.auth.token
-                }
-            })
-            .subscribe({
-                next: (res) => {
-                    if (res.data) {
-                        callBack(res.data);
-                    }
-                },
-                error: (err: HttpErrorResponse) => {
-                    this.errorService.errorHandler(err);
-                    if (errorCallBack) {
-                        errorCallBack();
-                    }
-                }
-            });
+    post<T>(apiUrl: string, body: any): Observable<T> {
+        return this.http.post<T>(`${api}/${apiUrl}`, body, {
+            headers: {
+                Authorization: 'Bearer ' + this.auth.token
+            }
+        });
+    }
+
+    update<T>(apiUrl: string, body: any): Observable<T> {
+        return this.http.put<T>(`${api}/${apiUrl}`, body, {
+            headers: {
+                Authorization: 'Bearer ' + this.auth.token
+            }
+        });
+    }
+
+    delete<T>(apiUrl: string): Observable<T> {
+        return this.http.delete<T>(`${api}/${apiUrl}`, {
+            headers: {
+                Authorization: 'Bearer ' + this.auth.token
+            }
+        });
     }
 }
